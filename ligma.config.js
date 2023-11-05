@@ -24,6 +24,6 @@ module.exports = {
         "BFSGraphMatrix",
         "Map",
         "MinHeap",
+        "RingBuffer",
     ],
-}
-
+};
