@@ -24,16 +24,29 @@ export default class Trie<Partials extends Object, Value extends Object> {
     private comparePartials: Compare<Partials> = (a: any, b: any) => a === b; // prettier-ignore
     private compareValues: Compare<Value> = (a: any, b: any) => a === b;
 
-    // TODO: allow user to customize the three transform/comparator functions
-    constructor(compareFunction?: (a: Partials, b: Partials) => boolean) {
+    constructor(
+        comparePartials?: Compare<Partials>,
+        compareValues?: Compare<Value>,
+        partialsToValues?: Concat<Partials, Value>,
+        valuesToPartials?: Split<Value, Partials>,
+    ) {
         this.head = {
             value: null,
             isWord: false,
             parent: null,
             children: [],
         };
-        if (compareFunction) {
-            this.comparePartials = compareFunction;
+        if (comparePartials) {
+            this.comparePartials = comparePartials;
+        }
+        if (compareValues) {
+            this.compareValues = compareValues;
+        }
+        if (partialsToValues) {
+            this.toValue = partialsToValues;
+        }
+        if (valuesToPartials) {
+            this.toPartials = valuesToPartials;
         }
     }
 
