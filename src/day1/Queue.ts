@@ -7,15 +7,27 @@ export default class Queue<T> {
     public length: number;
     private head?: Node<T>;
     private tail?: Node<T>;
+    private debug?: boolean;
 
-    constructor() {
+    constructor(debug?: boolean) {
         this.head = undefined;
         this.tail = undefined;
         this.length = 0;
+        this.debug = debug;
+    }
+
+    show(getter = (v: T) => v as unknown) {
+        const output = [];
+        let curr = this.head;
+        for (let i = 0; curr && i < this.length; i++) {
+            output.push(getter(curr.value));
+            curr = curr.next;
+        }
+        console.log(`queue:[${output}]`);
     }
 
     enqueue(item: T): void {
-        console.log(`op ${this.enqueue.name}: ${item}`);
+        this.debug && console.log(`op ${this.enqueue.name}: ${item}`);
         const node = { value: item } as Node<T>;
         this.length++;
 
@@ -23,14 +35,14 @@ export default class Queue<T> {
         if (!this.tail) {
             this.tail = node;
             this.head = node;
-            console.table({ head: this.head, tail: this.tail });
+            this.debug && console.table({ head: this.head, tail: this.tail });
             return;
         }
         // existing queue
         this.tail.next = node;
         this.tail = node;
 
-        console.table({ head: this.head, tail: this.tail });
+        this.debug && console.table({ head: this.head, tail: this.tail });
     }
     deque(): T | undefined {
         if (!this.head) return undefined;
@@ -46,8 +58,8 @@ export default class Queue<T> {
             this.tail = undefined;
         }
 
-        console.log(`op ${this.deque.name}: ${head.value}`);
-        console.table({ head: this.head, tail: this.tail });
+        this.debug && console.log(`op ${this.deque.name}: ${head.value}`);
+        this.debug && console.table({ head: this.head, tail: this.tail });
 
         return head.value;
     }

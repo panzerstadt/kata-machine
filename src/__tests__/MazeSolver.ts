@@ -1,4 +1,4 @@
-import maze_solver from "@code/MazeSolver";
+import maze_solver from "@code/MazeSolver-mine";
 
 test("maze solver", function () {
     const maze = [
@@ -34,12 +34,11 @@ test("maze solver", function () {
 });
 
 function drawPath(data: string[], path: Point[]) {
-    const data2 = data.map((row) => row.split(''));
+    const data2 = data.map((row) => row.split(""));
     path.forEach((p) => {
         if (data2[p.y] && data2[p.y][p.x]) {
-            data2[p.y][p.x] = '*';
+            data2[p.y][p.x] = "*";
         }
     });
-    return data2.map(d => d.join(''));
+    return data2.map((d) => d.join(""));
 }
-

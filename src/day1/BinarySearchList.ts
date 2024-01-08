@@ -1,3 +1,6 @@
+/**
+ * requirements: has to be a sorted array
+ */
 export default function bs_list(haystack: number[], needle: number): boolean {
     // low and hi indices
     let low = 0;
@@ -18,6 +21,11 @@ export default function bs_list(haystack: number[], needle: number): boolean {
             // v < m
             hi = m;
         }
+        console.log(
+            `remaining array from index ${low} to index: ${
+                hi - 1
+            }: ${haystack.slice(low, hi)}`,
+        );
     } while (low < hi);
 
     return false;
