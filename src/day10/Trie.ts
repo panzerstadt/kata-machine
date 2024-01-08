@@ -5,7 +5,6 @@ type Node<Partials extends Object> = {
     children: Node<Partials>[]; // exactly 26 children
 };
 
-type Search<V, P> = (search: V, within: P) => boolean;
 type Compare<P> = (a: P | null, b: P | null) => boolean;
 type Concat<P, V> = (partials: P[]) => V;
 type Split<V, P> = (value: V) => P[];
